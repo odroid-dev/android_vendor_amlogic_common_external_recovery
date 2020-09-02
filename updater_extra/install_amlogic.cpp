@@ -811,12 +811,12 @@ Value* BackupEnvPartition(const char* name, State* state,
     offset = offset/(1024*1024);
 
     sprintf(tmpbuf, "%s%d", "seek=", offset);
-    char *args2[7] = {"/sbin/busybox", "dd", "if=/dev/block/env", "of=/dev/block/mmcblk0", "bs=1M"};
+    char *args2[7] = {"/sbin/toybox", "dd", "if=/dev/block/env", "of=/dev/block/mmcblk0", "bs=1M"};
     args2[5] = &tmpbuf[0];
     args2[6] = nullptr;
     pid_t child = fork();
     if (child == 0) {
-        execv("/sbin/busybox", args2);
+        execv("/sbin/toybox", args2);
         printf("execv failed\n");
         _exit(EXIT_FAILURE);
     }
